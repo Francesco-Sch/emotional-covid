@@ -1,0 +1,17 @@
+{
+  "name": "emotional-covid-server",
+  "version": "1.0.0",
+  "description": "An app that visualizes the emotional state of society during the duration of the covid-19 pandemic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "covid",
+    "covid-19",
+    "sentiment",
+    "emotions"
+  ],
+  "author": "Francesco Scheffczyk",
+  "license": "ISC"
+}
