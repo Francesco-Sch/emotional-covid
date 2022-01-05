@@ -13,5 +13,9 @@
     "emotions"
   ],
   "author": "Francesco Scheffczyk",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "got": "^12.0.0"
+  }
 }
