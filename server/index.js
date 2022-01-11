@@ -2,6 +2,7 @@ import app from 'express';
 import dotenv from 'dotenv'
 import got from 'got';
 import { TwitterApi } from 'twitter-api-v2';
+import { sentimentAnalysis } from './sentimentAnalysis.js'
 
 dotenv.config();
 
@@ -30,8 +31,8 @@ async function collectTweetIDs()  {
     tweetIDs[0] = tweetIDs[0].slice(1, tweetIDs[0].length)
 }
 
-async function getTweets() {
-    for (let index = 100; index < 120; index++) {
+async function getTweets(tweetIDs) {
+    for (let index = 0; index < 10; index++) {
         await getSingleTweet(tweetIDs[index]);
     }
 } 
@@ -67,14 +68,24 @@ async function getSingleTweet(tweetID) {
     }
 };
 
-
 function init() {
     collectTweetIDs()
     .then(async () => {
-        await getTweets();
-    }).then(() => {
-        console.log(tweets);
-    }) 
+        await getTweets(tweetIDs);
+    }).then(async () => {
+        tweets.forEach(async (tweet) => {
+            let sentiment = await sentimentAnalysis(tweet.text);
+            let tones = sentiment.result.document_tone.tones;
+
+            if(tones == []) {
+                return
+            } else {
+               tweet.tones = tones; 
+
+               console.log(tweet);
+            }
+        })
+    })
 }
 
 init();
