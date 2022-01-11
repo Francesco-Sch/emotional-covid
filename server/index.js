@@ -1,9 +1,7 @@
 import app from 'express';
 import dotenv from 'dotenv'
 import got from 'got';
-import fs from'fs';
 import readline from 'readline';
-import LineReader from 'line-reader';
 import { TwitterApi } from 'twitter-api-v2';
 import { sentimentAnalysis } from './sentimentAnalysis.js'
 
