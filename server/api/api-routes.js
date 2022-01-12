@@ -19,5 +19,10 @@ import sentimentAnalysisController from "../controller/sentimentAnalysisControll
 router.route('/startSentimentAnalysis')
     .get(sentimentAnalysisController)
 
+import tweetsController from "../controller/tweetsController.js";
+router.route('/getAllTweets')
+    .get(tweetsController)
+    
+
 // Export API routes
 export default router;
