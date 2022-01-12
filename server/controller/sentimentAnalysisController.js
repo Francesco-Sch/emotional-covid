@@ -1,4 +1,4 @@
-import Tweet, { getTweet } from './tweetModel.js'
+import Tweet, { getTweet } from '../models/tweetModel.js'
 import ToneAnalyzerV3 from 'ibm-watson/tone-analyzer/v3.js';
 import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import dotenv from 'dotenv';

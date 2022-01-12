@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 
@@ -8,15 +7,10 @@ dotenv.config();
 const app = express();
 
 // Import routes
-import apiRoutes from "./api-routes.js"
+import apiRoutes from "./api/api-routes.js"
 
 // Use Api routes in the App
 app.use('/api', apiRoutes)
-
-// Configure bodyparser to handle post requests
-app.use(bodyParser.urlencoded({
-    extended: true
-}));app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});

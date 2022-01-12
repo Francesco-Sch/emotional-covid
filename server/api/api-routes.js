@@ -11,13 +11,11 @@ router.get('/', function (require, response) {
 });
 
 //Import DataProcessingController
-import DataProcessingController from './dataProcessingController.js';
-
+import DataProcessingController from '../controller/dataProcessingController.js';
 router.route('/startTweetCollection')
     .get(DataProcessingController)
 
-import sentimentAnalysisController from "./sentimentAnalysisController.js";
-
+import sentimentAnalysisController from "../controller/sentimentAnalysisController.js";
 router.route('/startSentimentAnalysis')
     .get(sentimentAnalysisController)
 

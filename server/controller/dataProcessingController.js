@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import got from 'got';
 import readline from 'readline';
 import { TwitterApi, ApiResponseError } from 'twitter-api-v2';
-import Tweet from './tweetModel.js'
+import Tweet from '../models/tweetModel.js'
 
 dotenv.config();
 
@@ -89,7 +89,7 @@ async function autoRetryOnRateLimitError(callback) {
                 const timeToWait = resetTimeout - Date.now();
 
                 await sleep(timeToWait);
-                continue;
+                return;
             }
 
             throw error;
@@ -130,7 +130,7 @@ async function getSingleTweet(tweetID) {
         tweet.save().then((tweet) => {
             // If everything goes as planed
             //use the retured user document for something
-            console.log.json({
+            console.log({
                 message: 'New tweet created!',
                 data: tweet
             });
