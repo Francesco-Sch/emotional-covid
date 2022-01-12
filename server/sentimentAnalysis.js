@@ -31,4 +31,20 @@ async function sentimentAnalysis(text) {
     return JSON.parse(sentiment);
 }
 
+// Function for analysing tweets
+// async () => {
+//   tweets.forEach(async (tweet) => {
+//       let sentiment = await sentimentAnalysis(tweet.text);
+//       let tones = sentiment.result.document_tone.tones;
+
+//       if(tones == []) {
+//           return
+//       } else {
+//          tweet.tones = tones; 
+
+//          console.log(tweet);
+//       }
+//   })
+// }
+
 export { sentimentAnalysis };
