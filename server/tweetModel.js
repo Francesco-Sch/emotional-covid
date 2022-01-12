@@ -21,15 +21,19 @@ const tweetSchema = mongoose.Schema({
     },
     public_metrics: {
         Object,
-        
         likes: Number,
         retweets: Number,
         replies: Number,
         quotes: Number,
     },
     link: String,
+    tones: Object,
 })
 
 const Tweet = mongoose.model('tweet', tweetSchema);
 
-export { Tweet }
+export const getTweet = function (callback, limit) {
+    Tweet.find(callback).limit(limit);
+}
+
+export default Tweet

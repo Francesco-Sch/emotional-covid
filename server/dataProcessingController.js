@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import got from 'got';
 import readline from 'readline';
 import { TwitterApi, ApiResponseError } from 'twitter-api-v2';
-import { Tweet } from './tweetModel.js'
+import Tweet from './tweetModel.js'
 
 dotenv.config();
 
@@ -60,7 +60,7 @@ async function collectTweetIDs(files)  {
             console.log(count);
             count++;
 
-            if(count >= 10000) {
+            if(count >= 150) {
                 break
             }
         }
@@ -84,6 +84,7 @@ async function autoRetryOnRateLimitError(callback) {
         } catch (error) {
             if (error instanceof ApiResponseError && error.rateLimitError && error.rateLimit) {
                 console.log('Waiting for twitter api...')
+                console.log(error.rateLimit);
                 const resetTimeout = error.rateLimit.reset * 1000; // convert to ms time instead of seconds time
                 const timeToWait = resetTimeout - Date.now();
 
@@ -96,7 +97,7 @@ async function autoRetryOnRateLimitError(callback) {
     }
 }
 
-async function getSingleTweet(tweetID, req, res) {
+async function getSingleTweet(tweetID) {
     const url = `tweets?ids=${tweetID}&tweet.fields=created_at,public_metrics&expansions=author_id&user.fields=name,username,location,profile_image_url`
    
     const apiResponse = await twitterApi.v2.get(url);
@@ -137,19 +138,6 @@ async function getSingleTweet(tweetID, req, res) {
         .catch((error) => {
             //When there are errors We handle them here
             console.log(error);
-        });
-        
-        
-        (function (err, ) {
-            if (err) {
-                res.json(err);
-                return
-            }
-    
-            res.json({
-                message: 'New contact created!',
-                data: tweet
-            });
         });
     }
 };

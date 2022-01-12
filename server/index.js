@@ -16,11 +16,11 @@ app.use('/api', apiRoutes)
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
     extended: true
- }));app.use(bodyParser.json());
+}));app.use(bodyParser.json());
 
- // Connect to Mongoose and set connection variable
+// Connect to Mongoose and set connection variable
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 // Added check for DB connection
 if(!db)
@@ -35,5 +35,5 @@ app.get('/', (req, res) => res.send('API is running. Check "/api" path'));
 
 // Launch app to listen to specified port
 app.listen(port, function () {
-        console.log("Running Emotional Covid-API on port " + port);
+    console.log("Running Emotional Covid-API on port " + port);
 });
