@@ -32,59 +32,77 @@ async function sentimentAnalysis(text) {
     return JSON.parse(sentiment);
 }
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
 export default function (req, res) {
     getTweet(function (err, contacts) {
-        if (err) {
-            res.json({
-                status: "error",
-                message: err,
-            });
-        }
-        res.json({
-            status: "success",
-            message: "Contacts retrieved successfully",
-            data: contacts
-        });
+        // if (err) {
+        //     res.json({
+        //         status: "error",
+        //         message: err,
+        //     });
+        // }
+        // res.json({
+        //     status: "success",
+        //     message: "Contacts retrieved successfully",
+        //     data: contacts
+        // });
 
-        contacts.forEach(async element => {
+        let count = 0;
 
-            Tweet.findById(element._id, async function(err, tweet) {
+        for(let i = 0; i < 10; i++) {
+            
+            count++
+
+            if(count === 1) {
+                return;
+            }
+
+            console.log(count);
+
+            Tweet.findById(contacts[i]._id, async function(err, tweet) {
                 if(err) {
                     res.send(err);
                 }
 
-                let tone = await sentimentAnalysis(element.text);
+                let tone = await sentimentAnalysis(contacts[i].text);
 
                 if(tone == []) {
-                    tweet.remove({_id: tweet._id}, function(err) {
+                    Tweet.remove({_id: tweet._id}, function(err) {
                         if(err) {
                             res.json(err);
                         }
 
-                        res.json({
-                            status: "success",
-                            message: 'Tweet deleted. No tone available',
-                        })
+                        console.log({
+                            message: 'Tweet deleted. No tone available.',
+                            data: Tweet
+                        });
                     })
                 } else {
                     tweet.tones = tone.result.document_tone.tones;
 
                     // console.log(tweet);
 
-                    tweet.save(function(err) {
+                    tweet.save({_id: tweet._id}, function(err) {
                         if(err) {
                             res.json(err);
                         }
 
-                        res.json({
-                            message: 'Tones added',
-                            data: tweet,
-                        })
+                        console.log({
+                            message: 'Tone added!',
+                            data: tweet
+                        });
                     })
                 }
             })
             //console.log(element);
             //console.log(await sentimentAnalysis(element.text));
-        });
+        };
     });
 }
