@@ -1,6 +1,9 @@
 html
   head
-    title= 'Empathy'
+    title= 'EMPATHY'
+    link(href="/styles.css", rel="stylesheet")
   body
     each val in data
-      p= val.text
+      .container 
+        .color-container
+        p= val.text
