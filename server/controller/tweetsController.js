@@ -1,17 +1,13 @@
 import { getTweet } from '../models/tweetModel.js'
 
 export default function init(req, res) {
-    getTweet(function (err, contacts) {
+    getTweet(function (err, tweets) {
         if (err) {
             res.json({
                 status: "error",
                 message: err,
             });
         }
-        res.json({
-            status: "success",
-            message: "Tweets retrieved successfully",
-            data: contacts
-        });
+        return tweets;
     });
 };

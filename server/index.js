@@ -17,6 +17,10 @@ import apiRoutes from "./api/api-routes.js"
 // Use Api routes in the App
 app.use('/api', apiRoutes)
 
+// Set template directory
+app.set('views', './views')
+app.set('view engine', 'pug')
+
 // Connect to Mongoose and set connection variable
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});
 let db = mongoose.connection;
@@ -29,8 +33,14 @@ else
 
 const port = process.env.PORT || 3000;
 
+import Tweet from './models/tweetModel.js'
+
 // Send message for default URL
-app.get('/', (req, res) => res.send('API is running. Check "/api" path'));
+app.get('/', async (req, res) => {
+    let data = await Tweet.find({});
+
+    res.render('index', {data: data})
+});
 
 // Launch app to listen to specified port
 app.listen(port, function () {
