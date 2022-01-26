@@ -44,8 +44,25 @@ import Tweet from './models/tweetModel.js'
 // Send message for default URL
 app.get('/', async (req, res) => {
     let data = await Tweet.find({});
+    let cleanedData = [];
 
-    res.render('index', {data: data})
+    data.forEach((element) => {
+        let tweet;
+        if(element.tones) {
+            tweet = {
+                text: element.text,
+                tone: element.tones[0].tone_id,
+            }
+        } else {
+            tweet = {
+                text: element.text,
+            }
+        }
+
+        cleanedData.push(tweet);
+    })
+
+    res.render('index', {data: cleanedData})
 });
 
 // Launch app to listen to specified port

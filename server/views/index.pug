@@ -3,7 +3,23 @@ html
     title= 'EMPATHY'
     link(href="/styles.css", rel="stylesheet")
   body
-    each val in data
+    each tweet in data
       .container 
         .color-container
-        p= val.text
+            if tweet.tone == 'joy'
+                .circle.joy
+            else if tweet.tone == 'confident'
+                 .circle.confident
+            else if tweet.tone == 'anger'
+                 .circle.anger
+            else if tweet.tone == 'fear'
+                 .circle.fear
+            else if tweet.tone == 'tentative'
+                 .circle.tentative
+            else if tweet.tone == 'analytical'
+                 .circle.analytical
+            else if tweet.tone == 'sadness'
+                 .circle.sadness
+            else
+                .circle.gray
+        p= tweet.text

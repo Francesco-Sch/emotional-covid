@@ -5,6 +5,49 @@
 }
 
 .color-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20px;
     height: 20px;
+    margin-right: 1rem;
+}
+
+.circle {
+    width: 8px;
+    height: 8px;
+    border: 1px transparent solid;
+    border-radius: 20px;  
+}
+
+.joy {
+    background-color: #FF332E;
+}
+
+.confident {
+    background-color: #FF4560;
+}
+
+.anger {
+    background-color: #FC15A4;
+}
+
+.fear {
+    background-color: #18A058;
+}
+
+.tentative {
+    background-color: #159F97;
+}
+
+.analytical {
+    background-color: #0B2F96;
+}
+
+.sadness {
+    background-color: #041653;
+}
+
+.gray {
+    background-color: lightgrey;
 }
